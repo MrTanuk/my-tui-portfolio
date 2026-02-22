@@ -1,0 +1,28 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import ExperienceCard from '../ui/ExperienceCard.astro';
+import { CONFIG } from '../../config';
+
+const experiences = CONFIG.EXPERIENCE;
+---
+
+<section id="experience" class="mb-16">
+  <!-- Comment -->
+  <SectionHeader comment="Experience" title="Work Experience" />
+  
+  <!-- Experience timeline -->
+  <div class="space-y-0">
+    {experiences.map((exp, index) => (
+      <ExperienceCard 
+        company={exp.company}
+        role={exp.role}
+        location={exp.location}
+        startDate={exp.startDate}
+        endDate={exp.endDate}
+        description={exp.description}
+        technologies={exp.technologies}
+        isLast={index === experiences.length - 1}
+      />
+    ))}
+  </div>
+</section>

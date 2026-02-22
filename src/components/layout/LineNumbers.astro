@@ -1,0 +1,57 @@
+---
+---
+
+<div class="w-12 bg-(--ctp-crust) text-right pr-3 pt-4 text-sm text-(--ctp-overlay0) select-none shrink-0 overflow-hidden">
+  <div id="line-numbers" class="leading-6"></div>
+</div>
+
+<script>
+  function initLineNumbers() {
+    const contentScroll = document.getElementById('content-scroll');
+    const lineNumbersContainer = document.getElementById('line-numbers');
+    const cursorPosition = document.getElementById('cursor-position');
+    const scrollPercentEl = document.getElementById('scroll-percent');
+    const article = document.querySelector('article');
+    
+    if (!contentScroll || !lineNumbersContainer || !article) return;
+
+    const lineHeight = 24; // leading-6 = 1.5rem = 24px
+
+    function generateLineNumbers() {
+      const contentHeight = article.scrollHeight;
+      const lineCount = Math.max(20, Math.ceil(contentHeight / lineHeight));
+      
+      let html = '';
+      for (let i = 1; i <= lineCount; i++) {
+        html += `<div class="leading-6">${i}</div>`;
+      }
+      lineNumbersContainer.innerHTML = html;
+    }
+
+    function updateScrollIndicators() {
+      const scrollTop = contentScroll.scrollTop;
+      
+      lineNumbersContainer.style.transform = `translateY(-${scrollTop}px)`;
+      
+      const currentLine = Math.floor(scrollTop / lineHeight) + 1;
+      if (cursorPosition) {
+        cursorPosition.textContent = `LN ${currentLine}:0`;
+      }
+      
+      const maxScroll = contentScroll.scrollHeight - contentScroll.clientHeight;
+      const percent = maxScroll > 0 ? Math.round((scrollTop / maxScroll) * 100) : 0;
+      if (scrollPercentEl) {
+        scrollPercentEl.textContent = `${percent}%`;
+      }
+    }
+
+    contentScroll.addEventListener('scroll', updateScrollIndicators);
+    window.addEventListener('resize', generateLineNumbers);
+    
+    generateLineNumbers();
+    updateScrollIndicators();
+  }
+  
+  document.addEventListener('DOMContentLoaded', initLineNumbers);
+  document.addEventListener('astro:page-load', initLineNumbers);
+</script>

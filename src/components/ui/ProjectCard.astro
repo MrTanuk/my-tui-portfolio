@@ -1,0 +1,94 @@
+---
+import { getLanguageInfo, formatDate } from '../../lib/github.ts';
+
+interface Props {
+  name: string;
+  description: string | null;
+  url: string;
+  homepage: string | null;
+  language: string | null;
+  stars: number;
+  forks: number;
+  updatedAt: string;
+  topics: string[];
+}
+
+const { name, description, url, homepage, language, stars, forks, updatedAt, topics } = Astro.props;
+const langInfo = getLanguageInfo(language);
+---
+
+<article class="project-card group p-4 bg-(--ctp-surface0) rounded-lg hover:bg-(--ctp-surface1) transition-all duration-200">
+  <!-- Header: Icon + Name -->
+  <div class="flex items-start justify-between mb-2">
+    <a 
+      href={url} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 text-(--ctp-text) hover:text-(--ctp-blue) transition-colors"
+    >
+      <span class="nf text-(--ctp-yellow)">&#xe709;</span>
+      <span class="font-semibold">{name}</span>
+    </a>
+    
+    <!-- Stars & Forks -->
+    <div class="flex items-center gap-3 text-sm text-(--ctp-subtext0)">
+      {stars > 0 && (
+        <span class="flex items-center gap-1">
+          <span class="nf text-(--ctp-yellow)">&#xf005;</span>
+          {stars}
+        </span>
+      )}
+      {forks > 0 && (
+        <span class="flex items-center gap-1">
+          <span class="nf text-(--ctp-text)">&#xf126;</span>
+          {forks}
+        </span>
+      )}
+    </div>
+  </div>
+  
+  <!-- Description -->
+  {description && (
+    <p class="text-sm text-(--ctp-subtext0) mb-3 line-clamp-2">
+      {description}
+    </p>
+  )}
+  
+  <!-- Topics/Tags -->
+  {topics.length > 0 && (
+    <div class="flex flex-wrap gap-1 mb-3">
+      {topics.slice(0, 3).map((topic) => (
+        <span class="px-2 py-0.5 text-xs bg-(--ctp-mantle) text-(--ctp-teal) rounded">
+          {topic}
+        </span>
+      ))}
+    </div>
+  )}
+  
+  <!-- Footer: Language + Updated -->
+  <div class="flex items-center justify-between text-xs text-(--ctp-subtext0)">
+    <span class="flex items-center gap-1">
+      <span 
+        class="nf" 
+        style={`color: ${langInfo.color}`}
+      >
+        {langInfo.icon}
+      </span>
+      {langInfo.name}
+    </span>
+    <span>Updated {formatDate(updatedAt)}</span>
+  </div>
+  
+  <!-- Homepage link (if exists) -->
+  {homepage && (
+    <a 
+      href={homepage} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="mt-2 flex items-center gap-1 text-xs text-(--ctp-blue) hover:text-(--ctp-lavender) transition-colors"
+    >
+      <span class="nf">&#xeb35;</span>
+      View Demo
+    </a>
+  )}
+</article>

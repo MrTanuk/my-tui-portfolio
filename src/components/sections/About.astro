@@ -1,0 +1,58 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import TypeWriter from '../ui/TypeWriter.tsx';
+import { CONFIG } from '../../config';
+
+const { NAME, ROLE } = CONFIG.PERSONAL;
+const { PARAGRAPH1, PARAGRAPH2 } = CONFIG.ABOUT;
+---
+
+<section id="about" class="mb-16">
+  <!-- Comment style -->
+  <SectionHeader comment="About" />
+  
+  <!-- Main heading with TypeWriter -->
+  <h1 class="text-3xl font-bold mb-4">
+    <!-- <span class="text-(--ctp-text)">Hello, I'm </span> -->
+    <TypeWriter 
+    text=`Hello, I'm ${NAME}`
+      client:visible 
+      speed={120}
+      class="text-(--ctp-mauve)"
+    />
+  </h1>
+  
+  <!-- Role subtitle -->
+  <p class="text-xl text-(--ctp-blue) mb-4">
+    <span class="text-(--ctp-mauve)">const</span>
+    <span class="text-(--ctp-text)"> role</span>
+    <span class="text-(--ctp-text)"> = </span>
+    <span class="text-(--ctp-green)">"{ROLE}"</span>;
+  </p>
+  
+  <!-- Description paragraphs -->
+  <div class="space-y-4 text-(--ctp-subtext0)">
+    <p>{PARAGRAPH1}</p>
+    <p>{PARAGRAPH2}</p>
+  </div>
+  
+  <!-- Quick info -->
+  <div class="mt-6 flex flex-wrap gap-4 text-sm">
+    <div class="flex items-center gap-2 text-(--ctp-subtext0)">
+      <span class="nf text-(--ctp-green)">&#xe6ae;</span>
+      <span>Neovim enthusiast</span>
+    </div>
+    <div class="flex items-center gap-2 text-(--ctp-subtext0)">
+      <span class="nf text-(--ctp-yellow)">&#xf17c;</span>
+      <span>Linux user</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Cursor blink animation */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>

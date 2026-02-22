@@ -1,0 +1,28 @@
+---
+interface Props {
+  filename?: string;
+  filetype?: string;
+  mode?: string;
+}
+
+const { 
+  filename = 'portfolio.astro', 
+  filetype = 'Astro',
+  mode = 'NORMAL' 
+} = Astro.props;
+---
+
+<footer class="h-8 bg-(--ctp-mantle) flex items-center justify-between px-4 border-t border-(--ctp-surface0) shrink-0">
+  <div class="flex items-center gap-4 text-xs">
+    <span class="flex items-center gap-1">
+      <span class="nf text-(--ctp-blue)">&#xeb7b;</span>
+      <span class="text-(--ctp-green)">{mode}</span>
+    </span>
+    <span class="text-(--ctp-text)">{filename}</span>
+  </div>
+  <div class="flex items-center gap-4 text-xs text-(--ctp-subtext0)">
+    <span>{filetype}</span>
+    <span id="cursor-position">LN 1:0</span>
+    <span id="scroll-percent">0%</span>
+  </div>
+</footer>

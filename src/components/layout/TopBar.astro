@@ -1,0 +1,97 @@
+---
+interface Props {
+  filename?: string;
+  filetype?: string;
+}
+
+const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
+---
+
+<header class="h-8 bg-(--ctp-crust) flex items-center justify-between px-4 border-b border-(--ctp-surface0) shrink-0">
+  <div class="flex items-center gap-2">
+    <!-- Mobile menu button (hamburguesa) -->
+    <button 
+      id="mobile-menu-btn"
+      class="md:hidden p-1 -ml-1 mr-1 hover:bg-(--ctp-surface0) rounded transition-colors"
+      aria-label="Toggle menu"
+    >
+      <span class="nf text-lg text-(--ctp-text)" id="menu-icon">&#xebca;</span>
+    </button>
+    
+    <!-- Desktop icon -->
+    <span class="nf text-(--ctp-mauve) hidden md:inline">&#xeb94;</span>
+    <span class="text-sm text-(--ctp-text)" data-filename>{filename}</span>
+  </div>
+  <div class="flex items-center gap-4 text-xs text-(--ctp-subtext0)">
+    <span class="hidden sm:inline">UTF-8</span>
+    <span class="text-(--ctp-blue)">[ {filetype} ]</span>
+  </div>
+</header>
+
+<script>
+  function initMobileMenu() {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const menuIcon = document.getElementById('menu-icon');
+    const sidebar = document.querySelector('aside');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    if (!menuBtn || !sidebar) return;
+    
+    let isOpen = false;
+    
+    // Toggle menu
+    menuBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        sidebar.classList.add('mobile-open');
+        // if (menuIcon) menuIcon.innerHTML = '&#xeab8;'; // Close icon (X)
+        overlay?.classList.remove('hidden');
+      } else {
+        sidebar.classList.remove('mobile-open');
+        // if (menuIcon) menuIcon.innerHTML = '&#xebca;'; // Menu icon (hamburguesa)
+        overlay?.classList.add('hidden');
+      }
+    });
+
+    // const closeBtn = document.getElementById('sidebar-close-btn');
+    // closeBtn?.addEventListener('click', () => {
+    //   isOpen = false;
+    //   sidebar.classList.remove('mobile-open');
+    //   if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+    //   overlay?.classList.add('hidden');
+    // });
+    
+    // Close menu when clicking overlay
+    overlay?.addEventListener('click', () => {
+      isOpen = false;
+      sidebar.classList.remove('mobile-open');
+      if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+      overlay.classList.add('hidden');
+    });
+    
+    // Close menu on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        isOpen = false;
+        sidebar.classList.remove('mobile-open');
+        if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+        overlay?.classList.add('hidden');
+      }
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = sidebar.querySelectorAll('.sidebar-link');
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        isOpen = false;
+        sidebar.classList.remove('mobile-open');
+        if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+        overlay?.classList.add('hidden');
+      });
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+  document.addEventListener('astro:page-load', initMobileMenu);
+</script>

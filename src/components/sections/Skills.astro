@@ -1,0 +1,23 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import SkillCard from '../ui/SkillCard.astro';
+import { CONFIG } from '../../config';
+
+const skills = CONFIG.SKILLS;
+---
+
+<section id="skills" class="mb-16">
+  <!-- Comment -->
+  <SectionHeader comment="Skills" title="Technologies I Use" />
+  
+  <!-- Skills grid - responsive -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
+    {skills.map((skill) => (
+      <SkillCard 
+        name={skill.name} 
+        icon={skill.icon} 
+        color={skill.color} 
+      />
+    ))}
+  </div>
+</section>

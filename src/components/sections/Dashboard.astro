@@ -1,0 +1,133 @@
+---
+import { CONFIG } from '../../config';
+
+const { ROLE, GITHUB_URL } = CONFIG.PERSONAL;
+---
+
+<section id="dashboard" class="min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center px-2">
+  <!-- ASCII Art Logo -->
+  <div class="ascii-logo mb-6 md:mb-8 text-center overflow-x-auto">
+    <pre class="text-(--ctp-mauve) text-[0.5rem] sm:text-xs md:text-sm font-bold leading-tight whitespace-pre">
+███╗   ███╗██████╗ ████████╗ █████╗ ███╗   ██╗██╗   ██╗██╗  ██╗
+████╗ ████║██╔══██╗╚══██╔══╝██╔══██╗████╗  ██║██║   ██║██║ ██╔╝
+██╔████╔██║██████╔╝   ██║   ███████║██╔██╗ ██║██║   ██║█████╔╝ 
+██║╚██╔╝██║██╔══██╗   ██║   ██╔══██║██║╚██╗██║██║   ██║██╔═██╗ 
+██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║██║ ╚████║╚██████╔╝██║  ██╗
+╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝</pre>
+
+  <p class="text-sm md:text-base text-(--ctp-subtext0)">
+    <span class="text-(--ctp-mauve)">const</span> role = <span class="text-(--ctp-green)">"{ROLE}"</span>;
+  </p>
+  </div>
+  
+  <!-- Greeting -->
+  <div class="mb-6 md:mb-8 text-center">
+    <h1 class="text-xl md:text-2xl lg:text-3xl font-bold text-(--ctp-text) mb-2">
+      Hello, <span class="text-(--ctp-blue)">everyone</span>!
+    </h1>
+  </div>
+  
+  <!-- Action Buttons -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3 mb-2 md:mb-2 w-full max-w-md md:max-w-none">
+    <a href="#about" class="dashboard-btn" data-section="about">
+      <span class="nf text-(--ctp-green) text-lg md:text-xl">&#xea67;</span>
+      <div class="text-left">
+        <span class="text-sm md:text-base text-(--ctp-text) font-medium">Open About</span>
+        <span class="hidden sm:block text-xs text-(--ctp-subtext0)">Learn more about me</span>
+      </div>
+      <span class="nf ml-auto text-(--ctp-subtext0) group-hover:text-(--ctp-mauve) transition-colors text-sm">&#xeab6;</span>
+    </a>
+    
+    <a href="#projects" class="dashboard-btn" data-section="projects">
+      <span class="nf text-(--ctp-blue) text-lg md:text-xl">&#xeb30;</span>
+      <div class="text-left">
+        <span class="text-sm md:text-base text-(--ctp-text) font-medium">View Projects</span>
+        <span class="hidden sm:block text-xs text-(--ctp-subtext0)">GitHub repositories</span>
+      </div>
+      <span class="nf ml-auto text-(--ctp-subtext0) group-hover:text-(--ctp-mauve) transition-colors text-sm">&#xeab6;</span>
+    </a>
+    
+    <a href="#experience" class="dashboard-btn" data-section="experience">
+      <span class="nf text-(--ctp-yellow) text-lg md:text-xl">&#xeae6;</span>
+      <div class="text-left">
+        <span class="text-sm md:text-base text-(--ctp-text) font-medium">Experience</span>
+        <span class="hidden sm:block text-xs text-(--ctp-subtext0)">Work history</span>
+      </div>
+      <span class="nf ml-auto text-(--ctp-subtext0) group-hover:text-(--ctp-mauve) transition-colors text-sm">&#xeab6;</span>
+    </a>
+    
+    <a href="#contact" class="dashboard-btn" data-section="contact">
+      <span class="nf text-(--ctp-teal) text-lg md:text-xl">&#xf06cb;</span>
+      <div class="text-left">
+        <span class="text-sm md:text-base text-(--ctp-text) font-medium">Contact</span>
+        <span class="hidden sm:block text-xs text-(--ctp-subtext0)">Get in touch</span>
+      </div>
+      <span class="nf ml-auto text-(--ctp-subtext0) group-hover:text-(--ctp-mauve) transition-colors text-sm">&#xeab6;</span>
+    </a>
+  </div>
+  
+  <!-- GitHub Link -->
+  <a 
+    href={GITHUB_URL}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-2 px-4 py-2 text-(--ctp-subtext0) hover:text-(--ctp-text) transition-colors text-sm"
+  >
+    <span class="nf text-lg">&#xe709;</span>
+    <span>github.com/MrTanuk</span>
+  </a>
+</section>
+
+<style>
+  .ascii-logo pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .dashboard-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--ctp-surface0);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    min-width: unset;
+  }
+  
+  .dashboard-btn:hover {
+    background-color: var(--ctp-surface1);
+  }
+  
+  @media (min-width: 640px) {
+    .dashboard-btn {
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      min-width: 280px;
+    }
+  }
+</style>
+
+<script>
+  import { scrollToSection, updateActiveNav } from '../../lib/utils';
+  
+  function initDashboard() {
+    const dashboardBtns = document.querySelectorAll('.dashboard-btn');
+    
+    dashboardBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const targetSection = btn.getAttribute('data-section');
+        
+        if (!targetSection) return;
+        
+        updateActiveNav(targetSection);
+        scrollToSection(targetSection);
+      });
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  document.addEventListener('astro:page-load', initDashboard);
+</script>

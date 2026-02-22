@@ -1,17 +1,98 @@
 ---
-
+import EditorLayout from '../layouts/EditorLayout.astro';
+import Dashboard from '../components/sections/Dashboard.astro';
+import About from '../components/sections/About.astro';
+import Skills from '../components/sections/Skills.astro';
+import Projects from '../components/sections/Projects.astro';
+import Experience from '../components/sections/Experience.astro';
+import { CONFIG } from '../config';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<EditorLayout title="MrTanuk | Portfolio">
+  <!-- Dashboard Section -->
+  <Dashboard />
+
+  <!-- About Section -->
+  <About />
+
+  <!-- Skills Section -->
+  <Skills />
+
+  <!-- Projects Section -->
+  <Projects />
+
+  <!-- Experience Section -->
+  <Experience />
+
+<!-- Contact Section -->
+  <section id="contact" class="mb-16">
+    <div class="text-(--ctp-overlay0) text-sm mb-2 select-none">{'//'} Contact</div>
+    <h2 class="text-2xl font-bold text-(--ctp-mauve) mb-4">Get In Touch</h2>
+    <div class="bg-(--ctp-mantle) p-4 rounded-lg">
+      <pre class="text-sm"><code><span class="text-(--ctp-mauve)">function</span> <span class="text-(--ctp-blue)">contact</span>() &#123;
+  <span class="text-(--ctp-mauve)">return</span> &#123;
+    <span class="text-(--ctp-teal)">email</span>: <span class="text-(--ctp-green)">"{CONFIG.CONTACT.EMAIL}"</span> <button class="copy-btn text-(--ctp-subtext0) hover:text-(--ctp-text) transition-colors" data-copy={CONFIG.CONTACT.EMAIL} aria-label="Copy email"><span class="nf icon">&#xf0c5;</span></button>,
+    <span class="text-(--ctp-teal)">github</span>: <span class="text-(--ctp-green)">"{CONFIG.CONTACT.GITHUB}"</span> <button class="copy-btn text-(--ctp-subtext0) hover:text-(--ctp-text) transition-colors" data-copy={CONFIG.CONTACT.GITHUB} aria-label="Copy GitHub"><span class="nf icon">&#xf0c5;</span></button>,
+  &#125;;
+&#125;</code></pre>
+    </div>
+    
+    <!-- Social links -->
+    <div class="mt-4 flex gap-4">
+      <a 
+        href={CONFIG.PERSONAL.GITHUB_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 px-3 py-2 bg-(--ctp-surface0) rounded-lg hover:bg-(--ctp-surface1) transition-colors text-sm"
+      >
+        <span class="nf text-(--ctp-text)">&#xe709;</span>
+        <span>GitHub</span>
+      </a>
+      <a 
+        href={`mailto:${CONFIG.CONTACT.EMAIL}`}
+        class="flex items-center gap-2 px-3 py-2 bg-(--ctp-surface0) rounded-lg hover:bg-(--ctp-surface1) transition-colors text-sm"
+      >
+        <span class="nf text-(--ctp-red)">&#xf01ee;</span>
+        <span>Email</span>
+      </a>
+    </div>
+  </section>
+
+    <!-- Script to copy social links -->
+    <script>
+    function initCopyIcons() {
+      const copyBtns = document.querySelectorAll('.copy-btn');
+      
+      copyBtns.forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const textToCopy = btn.getAttribute('data-copy');
+          if (!textToCopy) return;
+          
+          try {
+            await navigator.clipboard.writeText(textToCopy);
+            
+            // Change from icon to checkmark
+            const icon = btn.querySelector('.icon');
+            if (icon) {
+              const originalIcon = icon.innerHTML;
+              icon.innerHTML = '&#xf00c;'; // Check icon
+              icon.classList.add('text-(--ctp-green)');
+              
+              // Restore after 1 second
+              setTimeout(() => {
+                icon.innerHTML = originalIcon;
+                icon.classList.remove('text-(--ctp-green)');
+              }, 2000);
+            }
+          } catch (err) {
+            console.error('Failed to copy', err);
+          }
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initCopyIcons);
+    document.addEventListener('astro:page-load', initCopyIcons);
+    </script>
+</EditorLayout>
+

@@ -1,0 +1,20 @@
+---
+interface Props {
+  name: string;
+  icon: string;
+  color: string;
+}
+
+const { name, icon, color } = Astro.props;
+const iconColor = color.startsWith('ctp-') ? `var(--${color})` : 'var(--ctp-text)';
+---
+
+<div class="skill-card group flex items-center gap-3 p-3 bg-(--ctp-surface0) rounded-lg hover:bg-(--ctp-surface1) transition-all duration-200 cursor-default">
+  <span 
+    class="nf text-2xl transition-transform duration-200 group-hover:scale-110"
+    style={`color: ${iconColor}`}
+  >
+    {icon}
+  </span>
+  <span class="text-(--ctp-text) font-medium">{name}</span>
+</div>

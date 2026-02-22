@@ -1,0 +1,201 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+  icon: string;
+  iconColor: string;
+}
+
+const currentPath = Astro.url.pathname;
+
+const homeNavItems: NavItem[] = [
+  { label: 'about.md', href: '#about', icon: '\ueab2', iconColor: 'ctp-green' },
+  { label: 'skills.md', href: '#skills', icon: '\ueab2', iconColor: 'ctp-peach' },
+  { label: 'projects.md', href: '#projects', icon: '\ueab2', iconColor: 'ctp-blue' },
+  { label: 'experience.md', href: '#experience', icon: '\ueab2', iconColor: 'ctp-mauve' },
+  { label: 'contact.md', href: '#contact', icon: '\ueab2', iconColor: 'ctp-teal' },
+];
+
+const isProjectsPage = currentPath === '/projects';
+const navItems = isProjectsPage ? [] : homeNavItems;
+---
+
+<aside class="sidebar-mobile md:w-52 bg-(--ctp-mantle) border-r border-(--ctp-surface0) shrink-0 overflow-y-auto">
+  <nav class="p-2 pt-10 md:pt-2">
+    <div class="text-xs text-(--ctp-subtext0) uppercase tracking-wider mb-2 px-2">
+      Explorer
+    </div>
+    <ul class="space-y-1">
+      <li>
+        <a 
+          href="/"
+          class:list={[
+            "sidebar-link flex items-center gap-2 px-2 py-1 text-sm text-(--ctp-text) hover:bg-(--ctp-surface0) rounded transition-colors",
+            { "active": !isProjectsPage }
+          ]}
+          data-section="dashboard"
+        >
+          <span class="nf text-(--ctp-mauve)">&#xeb94;</span>
+          <span>portfolio.astro</span>
+        </a>
+      </li>
+      
+      {isProjectsPage ? (
+        <li>
+          <a 
+            href="/projects"
+            class="sidebar-link active flex items-center gap-2 px-2 py-1 text-sm text-(--ctp-text) bg-(--ctp-surface0)] rounded transition-colors"
+          >
+            <span class="nf text-(--ctp-blue)">&#xeab2;</span>
+            <span>projects.astro</span>
+          </a>
+        </li>
+      ) : (
+        <>
+          <li>
+            <button 
+              class="w-full flex items-center gap-2 px-2 py-1 text-sm text-(--ctp-text) hover:bg-(--ctp-surface0) rounded"
+              aria-expanded="true"
+            >
+              <span class="nf text-(--ctp-yellow)">&#xeb99;</span>
+              <span class="nf text-(--ctp-blue)">&#xeb5f;</span>
+              <span>src</span>
+            </button>
+          </li>
+          
+          {navItems.map((item) => (
+            <li class="pl-6">
+              <a 
+                href={item.href}
+                class="sidebar-link flex items-center gap-2 px-2 py-1 text-sm text-(--ctp-text) hover:bg-(--ctp-surface0) rounded transition-colors"
+                data-section={item.href.replace('#', '')}
+              >
+                <span class={`nf text-(--${item.iconColor})`}>{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            </li>
+          ))}
+          
+          <li class="mt-2 pt-2 border-t border-(--ctp-surface0)">
+            <a 
+              href="/projects"
+              class="flex items-center gap-2 px-2 py-1 text-sm text-(--ctp-subtext0) hover:text-(--ctp-text) hover:bg-(--ctp-surface0) rounded transition-colors"
+            >
+              <span class="nf text-(--ctp-blue)">&#xeb94;</span>
+              <span>view all projects</span>
+              <span class="nf ml-auto text-xs">&#xeab6;</span>
+            </a>
+          </li>
+        </>
+      )}
+    </ul>
+  </nav>
+</aside>
+
+<div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+<style>
+  @media (min-width: 768px) {
+    .sidebar-mobile {
+      position: static;
+      width: 13rem;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .sidebar-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh;
+      z-index: 40;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .sidebar-mobile.mobile-open {
+      transform: translateX(0);
+    }
+  }
+  
+  :global(.sidebar-link.active) {
+    background-color: var(--ctp-surface0);
+    border-left: 2px solid var(--ctp-mauve);
+  }
+</style>
+
+<script>
+  import { scrollToSection, updateActiveNav } from '../../lib/utils';
+  
+  function initSidebar() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.sidebar-link[data-section]');
+    const contentScroll = document.getElementById('content-scroll');
+    
+    let isManualScroll = false;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+
+    // Handle click on nav links
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const target = link as HTMLElement;
+        const targetSection = target.getAttribute('data-section');
+        
+        if (!targetSection) return;
+        
+        isManualScroll = true;
+        
+        updateActiveNav(targetSection);
+        scrollToSection(targetSection);
+        
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          isManualScroll = false;
+        }, 600);
+      });
+    });
+    
+    // Highlight active section on scroll
+    const scrollObserver = new IntersectionObserver(
+      (entries) => {
+        if (isManualScroll) return;
+        
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            updateActiveNav(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-10% 0px -80% 0px',
+        threshold: 0,
+      }
+    );
+    
+    sections.forEach((section) => scrollObserver.observe(section));
+    
+    // Detect when scrolled to bottom - highlight last section
+    if (contentScroll) {
+      contentScroll.addEventListener('scroll', () => {
+        if (isManualScroll) return;
+        
+        const scrollTop = contentScroll.scrollTop;
+        const scrollHeight = contentScroll.scrollHeight;
+        const clientHeight = contentScroll.clientHeight;
+        
+        if (scrollTop + clientHeight >= scrollHeight - 100) {
+          const lastSection = sections[sections.length - 1];
+          if (lastSection) {
+            updateActiveNav(lastSection.id);
+          }
+        }
+      });
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', initSidebar);
+  document.addEventListener('astro:page-load', initSidebar);
+</script>

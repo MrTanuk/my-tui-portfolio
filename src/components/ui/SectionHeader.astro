@@ -1,0 +1,13 @@
+---
+interface Props {
+  comment: string;
+  title: string;
+}
+const { comment, title } = Astro.props;
+---
+<div class="text-(--ctp-overlay0) text-sm mb-4 select-none">
+  {'//'} {comment}
+</div>
+<h2 class="text-xl md:text-2xl font-bold text-(--ctp-mauve) mb-6">
+  {title}
+</h2>

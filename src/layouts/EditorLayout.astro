@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import TopBar from '../components/layout/TopBar.astro';
+import BottomBar from '../components/layout/BottomBar.astro';
+import Sidebar from '../components/layout/Sidebar.astro';
+import LineNumbers from '../components/layout/LineNumbers.astro';
+
+interface Props {
+  title: string;
+  filename?: string;
+  filetype?: string;
+}
+
+const { title, filename, filetype } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Luis Ramírez - Backend Developer Portfolio" />
+    <meta name="author" content="MrTanuk" />
+    <meta name="theme-color" content="#1e1e2e" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="h-dvh flex flex-col overflow-hidden">
+    <!-- Top Status Bar -->
+    <TopBar filename={filename} filetype={filetype} />
+
+    <!-- Main Editor Area -->
+    <div class="flex flex-1 overflow-hidden min-h-0">
+      <!-- Sidebar - NvimTree -->
+      <Sidebar />
+
+      <!-- Editor Content Area -->
+      <main class="flex-1 flex overflow-hidden min-w-0">
+        <!-- Line Numbers (hidden on mobile) -->
+        <div class="hidden md:block">
+          <LineNumbers />
+        </div>
+
+        <!-- Content -->
+        <div id="content-scroll" class="flex-1 overflow-y-auto bg-(--ctp-crust) overscroll-contain">
+          <article class="p-4 leading-6">
+            <slot />
+          </article>
+        </div>
+      </main>
+    </div>
+
+    <!-- Bottom Status Bar -->
+    <BottomBar filename={filename} filetype={filetype} />
+  </body>
+</html>
