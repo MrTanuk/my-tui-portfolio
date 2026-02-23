@@ -16,7 +16,11 @@ const homeNavItems: NavItem[] = [
   { label: 'contact.md', href: '#contact', icon: '\ueab2', iconColor: 'ctp-teal' },
 ];
 
-const isProjectsPage = currentPath === '/projects';
+const normalizedPath = currentPath.length > 1 && currentPath.endsWith('/')
+  ? currentPath.slice(0, -1) 
+  : currentPath;
+
+const isProjectsPage = normalizedPath === '/projects';
 const navItems = isProjectsPage ? [] : homeNavItems;
 ---
 

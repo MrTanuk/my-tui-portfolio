@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import TopBar from '../components/layout/TopBar.astro';
 import BottomBar from '../components/layout/BottomBar.astro';
 import Sidebar from '../components/layout/Sidebar.astro';
@@ -26,6 +27,7 @@ const { title, filename, filetype } = Astro.props;
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body class="h-dvh flex flex-col overflow-hidden">
     <!-- Top Status Bar -->
