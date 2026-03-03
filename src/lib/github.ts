@@ -20,7 +20,7 @@ const GITHUB_API = 'https://api.github.com';
     HTML: { name: 'HTML', color: '#e34c26', icon: '\ue736' },
     CSS: { name: 'CSS', color: '#563d7c', icon: '\ue749' },
     Vue: { name: 'Vue', color: '#41b883', icon: '\uf4f4' },
-    Astro: { name: 'Astro', color: '#ff5a03', icon: '\uebcc' },
+    Astro: { name: 'Astro', color: '#ff5a03', icon: '\ue735' },
     Dockerfile: { name: 'Docker', color: '#384d54', icon: '\ue7b0' },
     Markdown: { name: 'Markdown', color: '#083fa1', icon: '\ue73e' },
  };
@@ -62,7 +62,7 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
  */
 export function getLanguageInfo(language: string | null): LanguageInfo {
   if (!language) {
-    return { name: 'Unknown', color: '#6e7681', icon: '\uea7b' };
+    return { name: 'Markdown', color: '#ffffff', icon: '' };
   }
   
   return LANGUAGE_MAP[language] || { 

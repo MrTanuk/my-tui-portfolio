@@ -52,6 +52,19 @@ export const CONFIG = {
       ],
       technologies: ['WordPress', 'PHP', 'MySQL', 'Elementor'],
     },
+    {
+      id: 2,
+      company: 'Trinity Launcher',
+      role: 'Core Developer',
+      location: 'Remote',
+      startDate: '2025-12',
+      endDate: false,
+      description: [
+          'I collaborate on a Minecraft Bedrock launcher project for GNU/Linux, handling the technical and graphical aspects.',
+      ],
+      technologies: ['C++', 'Qt6', 'Bash',],
+      url: 'https://github.com/Trinity-LA/Trinity-Launcher',
+    },
   ],
 
   // Contact

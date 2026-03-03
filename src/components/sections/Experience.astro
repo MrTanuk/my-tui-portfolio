@@ -3,7 +3,7 @@ import SectionHeader from '../ui/SectionHeader.astro';
 import ExperienceCard from '../ui/ExperienceCard.astro';
 import { CONFIG } from '../../config';
 
-const experiences = CONFIG.EXPERIENCE;
+const experiences = CONFIG.EXPERIENCE.slice().reverse();
 ---
 
 <section id="experience" class="mb-16">
@@ -21,6 +21,7 @@ const experiences = CONFIG.EXPERIENCE;
         endDate={exp.endDate}
         description={exp.description}
         technologies={exp.technologies}
+        url={exp.url}
         isLast={index === experiences.length - 1}
       />
     ))}
