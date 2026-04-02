@@ -58,7 +58,7 @@ export const CONFIG = {
       role: 'Core Developer',
       location: 'Remote',
       startDate: '2025-12',
-      endDate: false,
+      endDate: null,
       description: [
           'I collaborate on a Minecraft Bedrock launcher project for GNU/Linux, handling the technical and graphical aspects.',
       ],

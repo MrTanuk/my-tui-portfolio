@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mrtanuk.online/
+Sitemap: https://mrtanuk.online/sitemap-index.xml

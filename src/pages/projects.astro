@@ -12,7 +12,12 @@ const allRepos = await fetchGitHubRepos();
 const languages = getUniqueLanguages(allRepos);
 ---
 
-<EditorLayout title="MrTanuk | Projects" filename="projects.astro" filetype="Astro">
+<EditorLayout 
+  title="MrTanuk | Projects"
+  description="GitHub repositories by Luis Ramírez. Featured and public projects built with PHP, TypeScript, C++, Python, and more."
+  filename="projects.astro" 
+  filetype="Astro"
+>
   <!-- Back button -->
   <div class="mb-6">
     <a 

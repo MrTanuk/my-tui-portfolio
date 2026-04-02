@@ -8,7 +8,26 @@ import Experience from '../components/sections/Experience.astro';
 import { CONFIG } from '../config';
 ---
 
-<EditorLayout title="MrTanuk | Portfolio">
+<EditorLayout 
+  title="MrTanuk | Backend Developer Portfolio"
+  description="Luis Ramírez - Backend Developer. I enjoy coding all kinds of projects, from tiny scripts to fully scalable systems."
+>
+
+  <!-- JSON-LD: Structured Data for Google -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Luis Ramírez",
+    "alternateName": "MrTanuk",
+    "url": "https://mrtanuk.online",
+    "jobTitle": "Backend Developer",
+    "email": CONFIG.CONTACT.EMAIL,
+    "sameAs": [
+      CONFIG.PERSONAL.GITHUB_URL
+    ],
+    "knowsAbout": CONFIG.SKILLS.map(s => s.name)
+  })} />
+
   <!-- Dashboard Section -->
   <Dashboard />
 
@@ -24,7 +43,7 @@ import { CONFIG } from '../config';
   <!-- Experience Section -->
   <Experience />
 
-<!-- Contact Section -->
+  <!-- Contact Section -->
   <section id="contact" class="mb-16">
     <div class="text-(--ctp-overlay0) text-sm mb-2 select-none">{'//'} Contact</div>
     <h2 class="text-2xl font-bold text-(--ctp-mauve) mb-4">Get In Touch</h2>
@@ -71,14 +90,12 @@ import { CONFIG } from '../config';
           try {
             await navigator.clipboard.writeText(textToCopy);
             
-            // Change from icon to checkmark
             const icon = btn.querySelector('.icon');
             if (icon) {
               const originalIcon = icon.innerHTML;
-              icon.innerHTML = '&#xf00c;'; // Check icon
+              icon.innerHTML = '&#xf00c;';
               icon.classList.add('text-(--ctp-green)');
               
-              // Restore after 1 second
               setTimeout(() => {
                 icon.innerHTML = originalIcon;
                 icon.classList.remove('text-(--ctp-green)');
@@ -95,4 +112,3 @@ import { CONFIG } from '../config';
     document.addEventListener('astro:page-load', initCopyIcons);
     </script>
 </EditorLayout>
-

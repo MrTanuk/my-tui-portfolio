@@ -8,11 +8,22 @@ import LineNumbers from '../components/layout/LineNumbers.astro';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
   filename?: string;
   filetype?: string;
 }
 
-const { title, filename, filetype } = Astro.props;
+const { 
+  title, 
+  description = 'Luis Ramírez - Backend Developer Portfolio', 
+  image = '/og-image.png',
+  filename, 
+  filetype 
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
 ---
 
 <!doctype html>
@@ -20,13 +31,29 @@ const { title, filename, filetype } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content="Luis Ramírez - Backend Developer Portfolio" />
-    <meta name="author" content="MrTanuk" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Luis Ramírez" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="MrTanuk" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- PWA / Mobile -->
     <meta name="theme-color" content="#1e1e2e" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    
     <ClientRouter />
   </head>
   <body class="h-dvh flex flex-col overflow-hidden">
