@@ -55,7 +55,8 @@
   src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
+  size-adjust: 100%;
 }
 
 @font-face {
@@ -63,13 +64,13 @@
   src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
+  size-adjust: 100%;
 }
 
-/* Nerd Fonts Symbols - Icons */
 @font-face {
   font-family: 'Symbols Nerd Font';
-  src: url('/fonts/SymbolsNerdFontMono-Regular.ttf') format('woff2');
+  src: url('/fonts/SymbolsNerdFontMono-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
