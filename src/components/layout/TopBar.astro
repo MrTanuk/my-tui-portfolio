@@ -15,7 +15,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
       class="md:hidden p-1 -ml-1 mr-1 hover:bg-(--ctp-surface0) rounded transition-colors"
       aria-label="Toggle menu"
     >
-      <span class="nf text-lg text-(--ctp-text)" id="menu-icon">&#xebca;</span>
+      <span class="nf text-lg text-(--ctp-text)" id="menu-icon">&#xf0c9;</span>
     </button>
     
     <!-- Desktop icon -->
@@ -49,7 +49,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
         overlay?.classList.remove('hidden');
       } else {
         sidebar.classList.remove('mobile-open');
-        // if (menuIcon) menuIcon.innerHTML = '&#xebca;'; // Menu icon (hamburguesa)
+        // if (menuIcon) menuIcon.innerHTML = '&#xf0c9;'; // Menu icon (hamburguesa)
         overlay?.classList.add('hidden');
       }
     });
@@ -58,7 +58,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
     // closeBtn?.addEventListener('click', () => {
     //   isOpen = false;
     //   sidebar.classList.remove('mobile-open');
-    //   if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+    //   if (menuIcon) menuIcon.innerHTML = '&#xf0c9;';
     //   overlay?.classList.add('hidden');
     // });
     
@@ -66,7 +66,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
     overlay?.addEventListener('click', () => {
       isOpen = false;
       sidebar.classList.remove('mobile-open');
-      if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+      if (menuIcon) menuIcon.innerHTML = '&#xf0c9;';
       overlay.classList.add('hidden');
     });
     
@@ -75,7 +75,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
       if (e.key === 'Escape' && isOpen) {
         isOpen = false;
         sidebar.classList.remove('mobile-open');
-        if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+        if (menuIcon) menuIcon.innerHTML = '&#xf0c9;';
         overlay?.classList.add('hidden');
       }
     });
@@ -86,7 +86,7 @@ const { filename = 'portfolio.astro', filetype = 'Astro' } = Astro.props;
       link.addEventListener('click', () => {
         isOpen = false;
         sidebar.classList.remove('mobile-open');
-        if (menuIcon) menuIcon.innerHTML = '&#xebca;';
+        if (menuIcon) menuIcon.innerHTML = '&#xf0c9;';
         overlay?.classList.add('hidden');
       });
     });

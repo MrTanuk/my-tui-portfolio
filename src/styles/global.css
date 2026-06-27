@@ -1,55 +1,55 @@
 @import 'tailwindcss';
 
 /* ========================================
-   Catppuccin Mocha Theme
+   Tokyo Night Theme
+   Based on: https://github.com/tokyo-night/tokyo-night-vscode-theme
    ======================================== */
 
 :root {
   /* Base colors */
-  --ctp-base: #1e1e2e;
-  --ctp-mantle: #181825;
-  --ctp-crust: #11111b;
+  --ctp-base: #1a1b26;
+  --ctp-mantle: #16161e;
+  --ctp-crust: #0f0f14;
 
   /* Surface colors */
-  --ctp-surface0: #313244;
-  --ctp-surface1: #45475a;
-  --ctp-surface2: #585b70;
+  --ctp-surface0: #202330;
+  --ctp-surface1: #292e42;
+  --ctp-surface2: #3b3e52;
 
   /* Overlay colors */
-  --ctp-overlay0: #6c7086;
-  --ctp-overlay1: #7f849c;
-  --ctp-overlay2: #9399b2;
+  --ctp-overlay0: #515670;
+  --ctp-overlay1: #545c7e;
+  --ctp-overlay2: #565f89;
 
   /* Text colors */
-  --ctp-text: #cdd6f4;
-  --ctp-subtext0: #a6adc8;
-  --ctp-subtext1: #bac2de;
+  --ctp-text: #a9b1d6;
+  --ctp-subtext0: #9aa5ce;
+  --ctp-subtext1: #c0caf5;
 
   /* Accent colors */
-  --ctp-rosewater: #f5e0dc;
-  --ctp-flamingo: #f2cdcd;
-  --ctp-pink: #f5c2e7;
-  --ctp-mauve: #cba6f7;
-  --ctp-red: #f38ba8;
-  --ctp-maroon: #eba0ac;
-  --ctp-peach: #fab387;
-  --ctp-yellow: #f9e2af;
-  --ctp-green: #a6e3a1;
-  --ctp-teal: #94e2d5;
-  --ctp-sky: #89dceb;
-  --ctp-sapphire: #74c7ec;
-  --ctp-blue: #89b4fa;
-  --ctp-lavender: #b4befe;
+  --ctp-rosewater: #dc8a78;
+  --ctp-flamingo: #f7768e;
+  --ctp-pink: #bb9af7;
+  --ctp-mauve: #9d7cd8;
+  --ctp-red: #f7768e;
+  --ctp-maroon: #e26a75;
+  --ctp-peach: #ff9e64;
+  --ctp-yellow: #e0af68;
+  --ctp-green: #9ece6a;
+  --ctp-teal: #73daca;
+  --ctp-sky: #7dcfff;
+  --ctp-sapphire: #0db9d7;
+  --ctp-blue: #7aa2f7;
+  --ctp-lavender: #c0caf5;
 
   /* Special */
-  --ctp-cursor: #f5e0dc;
+  --ctp-cursor: #c0caf5;
 }
 
 /* ========================================
    Fonts
    ======================================== */
 
-/* JetBrains Mono - Main Code Font */
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
@@ -91,7 +91,6 @@ body {
   line-height: 1.6;
 }
 
-/* Nerd Font Icons */
 .nf {
   font-family: 'Symbols Nerd Font';
   font-style: normal;
@@ -106,8 +105,8 @@ body {
    ======================================== */
 
 ::selection {
-  background-color: var(--ctp-mauve);
-  color: var(--ctp-crust);
+  background-color: #515c7e4d;
+  color: var(--ctp-text);
 }
 
 /* ========================================
@@ -124,12 +123,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ctp-surface1);
+  background: #868bc415;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ctp-surface2);
+  background: #868bc422;
 }
 
 /* ========================================
@@ -137,7 +136,7 @@ body {
    ======================================== */
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--ctp-mauve), var(--ctp-blue));
+  background: linear-gradient(135deg, #bb9af7, #7aa2f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -147,33 +146,24 @@ body {
    Mobile Viewport Fix
    ======================================== */
 
-/* Usar dvh (dynamic viewport height) en lugar de vh */
 @supports (height: 100dvh) {
-  html,
-  body {
-    height: 100dvh;
-  }
+  html, body { height: 100dvh; }
 }
 
-/* Fallback para navegadores sin soporte dvh */
 @supports not (height: 100dvh) {
-  html,
-  body {
+  html, body {
     height: 100vh;
     height: -webkit-fill-available;
   }
 }
 
-/* Asegurar que el body no tenga scroll */
-html,
-body {
+html, body {
   overflow: hidden;
   position: fixed;
   width: 100%;
   overscroll-behavior: none;
 }
 
-/* Safe area insets para dispositivos con notch */
 body {
   padding-top: env(safe-area-inset-top, 0);
   padding-bottom: env(safe-area-inset-bottom, 0);
