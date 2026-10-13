@@ -13,6 +13,7 @@ const LANGUAGE_MAP: Record<string, LanguageInfo> = {
   'C++': { name: 'C++', color: '#7dcfff', icon: '\ue61d' },
   C: { name: 'C', color: '#7aa2f7', icon: '\ue61e' },
   Rust: { name: 'Rust', color: '#ff9e64', icon: '\ue7a8' },
+  Zig: { name: 'Zig', color: '#f7a41d', icon: '\ue8ef' },
   Go: { name: 'Go', color: '#73daca', icon: '\ue626' },
   Java: { name: 'Java', color: '#f7768e', icon: '\ue738' },
   Ruby: { name: 'Ruby', color: '#f7768e', icon: '\ue739' },
@@ -94,12 +95,15 @@ export function formatDate(dateString: string): string {
 
 /**
  * Get featured repos (top N by stars)
+ *
+ * Sorts a copy so the caller's array keeps its original order
+ * (the API returns repos sorted by `updated`).
  */
 export function getFeaturedRepos(
   repos: GitHubRepo[],
   count: number = CONFIG.FEATURED_REPOS_COUNT
 ): GitHubRepo[] {
-  return repos
+  return [...repos]
     .sort((a, b) => b.stargazers_count - a.stargazers_count)
     .slice(0, count);
 }
